@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+canvas{
+  background-color: rgb(62, 76, 41);
+  display: block;
+  margin: 0  auto ;
+}
