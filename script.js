@@ -10,7 +10,8 @@ let computerScore = 0;
 let ballX = canvas.width /2;
 let ballY = canvas.height /2;
 let playerPosition = canvas.height /2;
-let moveX = 2;
+let computerPosition = canvas.height /2;
+let moveX = -2;
 let moveY = -1;
 let ballRadius = 20;
 
@@ -66,15 +67,24 @@ function drawCanvas(){
 }
 
 function collide(){
-  ctx.beginPath();
-  ctx.fillStyle = "purple";
-  ctx.arc(10, canvas.height - ballRadius, ballRadius, 0,2*Math.PI);
-  ctx.fill();
+  
 
   if(ballY > canvas.height - ballRadius || ballY - ballRadius <= 0){
     moveY = -moveY;
   }
+  if(ballX <= ballRadius){
 
+  }else if(ballX + ballRadius >= canvas.width){
+
+  }
+
+  if(ballX <= ballRadius + poddleWidth && Math.abs(ballY - playerPosition) <= poddleHeight / 2 + ballRadius ){
+    moveX = -moveX;
+  }
+
+  if(ballX + ballRadius >= canvas.width - poddleWidth && Math.abs(ballY - computerPosition) <= poddleHeight / 2 + ballRadius ){
+    moveX = -moveX;
+  }
 
   
 }
