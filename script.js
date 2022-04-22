@@ -9,10 +9,26 @@ let playerScore = 0;
 let computerScore = 0;
 let ballX = canvas.width /2;
 let ballY = canvas.height /2;
+let playerPosition = canvas.height /2;
+let moveX = 2;
+let moveY = -1;
+let ballRadius = 20;
+
+document.addEventListener("keydown", movePaddle)
+function movePaddle(e){
+   switch(e.code) {
+     case "ArrowUp":
+       playerPosition -= 15;
+       break;
+     case "ArrowDown":
+       playerPosition += 15;
+       break;
+   }
+}
 
 function drawPlayerPaddle(){
   ctx.fillStyle = "red";
-  ctx.fillRect(15,canvas.height / 2 - poddleHeight / 2,poddleWidth,poddleHeight);
+  ctx.fillRect(15,playerPosition - poddleHeight / 2,poddleWidth,poddleHeight);
 }
 
 function drawComputerPaddle(){
@@ -23,10 +39,10 @@ function drawComputerPaddle(){
 function drawBall(){
   ctx.beginPath();
   ctx.fillStyle = "Green";
-  ctx.arc(ballX, ballY, 30, 0, 2*Math.PI);
+  ctx.arc(ballX, ballY, ballRadius, 0, 2*Math.PI);
   ctx.fill();
-  ballX += 2;
-  ballY += 1;
+  ballX += moveX;
+  ballY += moveY;
 }
 
 function drawScore(){
@@ -49,6 +65,20 @@ function drawCanvas(){
   ctx.stroke();
 }
 
+function collide(){
+  ctx.beginPath();
+  ctx.fillStyle = "purple";
+  ctx.arc(10, canvas.height - ballRadius, ballRadius, 0,2*Math.PI);
+  ctx.fill();
+
+  if(ballY > canvas.height - ballRadius || ballY - ballRadius <= 0){
+    moveY = -moveY;
+  }
+
+
+  
+}
+
 function loop(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   drawBall();
@@ -56,5 +86,7 @@ function loop(){
   drawComputerPaddle();
   drawScore();
   drawCanvas();
+  collide();
 }
-setInterval(loop, 15)
+setInterval(loop, 15);
+
